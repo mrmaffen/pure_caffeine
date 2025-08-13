@@ -20,16 +20,22 @@ stop_inhibit() {
     fi
 }
 
-# Log or react to PlaybackStatus changes via D-Bus
+check_playback() {
+    if echo $(playerctl status -a 2>/dev/null) | grep -q "Playing"; then
+        echo "$(date): Playback running"
+        start_inhibit
+    else
+        echo "$(date): Playback stopped"
+        stop_inhibit
+    fi
+}
+
+check_playback
+
+# Listen to PlaybackStatus changes via D-Bus
 dbus-monitor "interface='org.freedesktop.DBus.Properties',member='PropertiesChanged'" |
 while read -r line; do
     if echo "$line" | grep -q "PlaybackStatus"; then
-        if echo $(playerctl status -a 2>/dev/null) | grep -q "Playing"; then
-            echo "$(date): Playback running"
-            start_inhibit
-        else
-            echo "$(date): Playback stopped"
-            stop_inhibit
-        fi
+        check_playback
     fi
 done

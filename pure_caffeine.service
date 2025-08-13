@@ -1,11 +1,11 @@
 [Unit]
-Description=Prevent suspend while media is playing
+Description=PURE CAFFEINE - Prevent system sleep while media is playing
 After=graphical-session.target
 Wants=default.target
 
 [Service]
 Type=simple
-ExecStart=%h/scripts/media_stops_suspend.sh
+ExecStart=%h/path/to/directory/pure_caffeine.sh
 Restart=on-failure
 
 [Install]
