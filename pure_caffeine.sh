@@ -5,7 +5,8 @@ inhibit_pid=""
 start_inhibit() {
     if [[ -z "$inhibit_pid" ]]; then
         echo "Starting systemd-inhibit"
-        systemd-inhibit --what=idle:sleep --why="Media playing" tail -f /dev/null &
+        # PURE_CAFFEINE=1 just to mark the process
+        systemd-inhibit --what=idle:sleep --why="Media is playing. Snorting pure caffeine." env PURE_CAFFEINE=1 sleep infinity &
         inhibit_pid=$!
         echo "$inhibit_pid"
     fi

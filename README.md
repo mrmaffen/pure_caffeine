@@ -16,7 +16,7 @@ No polling required. All event-based.
 - Run "systemctl --user daemon-reload"
 - Run "systemctl --user enable --now pure_caffeine.service"
 - Verify service is running with "systemctl --user status pure_caffeine.service"
-- Verify functionality with "systemd-inhibit". Whenever media is playing, it should list an inhibitor with WHY="Media Playing"
+- Verify functionality with "systemd-inhibit". Whenever media is playing, it should list an inhibitor with WHY="Media is Playing"
 
 ### License
 Copyright (C) 2025 github.com/mrmaffen
