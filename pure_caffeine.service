@@ -1,0 +1,12 @@
+[Unit]
+Description=Prevent suspend while media is playing
+After=graphical-session.target
+Wants=default.target
+
+[Service]
+Type=simple
+ExecStart=%h/scripts/media_stops_suspend.sh
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
