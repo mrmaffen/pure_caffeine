@@ -11,11 +11,11 @@ No polling required. All event-based.
 - playerctl
 
 ### Install as a systemd service
-- Copy pure_caffeine.service into ~/.config/systemd/user
-- Edit pure_caffeine.service, adjust ExecStart to point to pure_caffeine.sh
+- Copy pure-caffeine.service into /etc/systemd/user
+- Edit pure-caffeine.service, adjust ExecStart to point to pure_caffeine.sh
 - Run "systemctl --user daemon-reload"
-- Run "systemctl --user enable --now pure_caffeine.service"
-- Verify service is running with "systemctl --user status pure_caffeine.service"
+- Run "systemctl --user enable --now pure-caffeine.service"
+- Verify service is running with "systemctl --user status pure-caffeine.service"
 - Verify functionality with "systemd-inhibit". Whenever media is playing, it should list an inhibitor with WHY="Media is Playing"
 
 ### License

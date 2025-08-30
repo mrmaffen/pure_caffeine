@@ -1,12 +1,17 @@
 #!/bin/bash
 
+ALSO_BLOCK_IDLE=0 # uses "--what=sleep:idle" to also prevent the idle state (usually used for turning off monitors)
+
 inhibit_pid=""
 
 start_inhibit() {
     if [[ -z "$inhibit_pid" ]]; then
         echo "Starting systemd-inhibit"
-        # PURE_CAFFEINE=1 just to mark the process
-        systemd-inhibit --what=idle:sleep --why="Media is playing. Snorting pure caffeine." env PURE_CAFFEINE=1 sleep infinity &
+        what_value="sleep"
+        if [ "$ALSO_BLOCK_IDLE" -ne 0 ]; then
+            what_value="sleep:idle"
+        fi
+        systemd-inhibit --why="Media is playing. Snorting PURE CAFFEINE." --what="$what_value" sleep infinity &
         inhibit_pid=$!
         echo "$inhibit_pid"
     fi

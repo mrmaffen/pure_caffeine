@@ -5,7 +5,7 @@ Wants=default.target
 
 [Service]
 Type=simple
-ExecStart=%h/path/to/directory/pure_caffeine.sh
+ExecStart=%h/path/to/pure_caffeine/pure_caffeine.sh
 Restart=on-failure
 
 [Install]
