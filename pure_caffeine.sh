@@ -6,31 +6,32 @@ inhibit_pid=""
 
 start_inhibit() {
     if [[ -z "$inhibit_pid" ]]; then
-        echo "Starting systemd-inhibit"
+        echo "Starting systemd-inhibit..."
         what_value="sleep"
         if [ "$ALSO_BLOCK_IDLE" -ne 0 ]; then
             what_value="sleep:idle"
         fi
         systemd-inhibit --why="Media is playing. Snorting PURE CAFFEINE." --what="$what_value" sleep infinity &
         inhibit_pid=$!
-        echo "$inhibit_pid"
+        echo "Started systemd-inhibit process with PID: $inhibit_pid"
     fi
 }
 
 stop_inhibit() {
     if [[ -n "$inhibit_pid" ]]; then
-        echo "Stopping systemd-inhibit"
+        echo "Stopping systemd-inhibit..."
         kill "$inhibit_pid"
+        echo "Stopped systemd-inhibit process with PID: $inhibit_pid"
         inhibit_pid=""
     fi
 }
 
 check_playback() {
     if echo $(playerctl status -a 2>/dev/null) | grep -q "Playing"; then
-        echo "$(date): Playback running"
+        echo "playerctl status: Playback running"
         start_inhibit
     else
-        echo "$(date): Playback stopped"
+        echo "playerctl status: Playback stopped"
         stop_inhibit
     fi
 }
